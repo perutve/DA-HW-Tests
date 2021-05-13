@@ -1,10 +1,9 @@
-package cz.czechitas.selenium;
-
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
+import pageobject.*;
 
 public class TestsCourseRegistrations {
 
@@ -12,7 +11,8 @@ public class TestsCourseRegistrations {
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "C:\\Java-Training\\Selenium\\geckodriver.exe");
+        String driverPath = System.getProperty("user.dir") + "\\src\\main\\resources\\geckodriver.exe";
+        System.setProperty("webdriver.gecko.driver", driverPath);
         browser = new FirefoxDriver();
         browser.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
@@ -56,7 +56,7 @@ public class TestsCourseRegistrations {
         SignInPage signInPage = mainpage.goToSignInForm();
 
         AllRegistrations registrations = signInPage.signInAndGoToAllRegistrations();
-        registrations.goToCreateNewRegistration();
+        mainpage = registrations.goToCreateNewRegistration();
 
         DATestingPage daTestingPage = mainpage.goToDATestingPage();
 
@@ -71,12 +71,11 @@ public class TestsCourseRegistrations {
 
         MainPage mainpage = new MainPage(browser);
         mainpage.goToMainPage();
-        mainpage.goToSignInForm();
 
-        SignInPage signInPage = new SignInPage(browser);
+        SignInPage signInPage = mainpage.goToSignInForm();
 
         AllRegistrations registrations = signInPage.signInAndGoToAllRegistrations();
-        registrations.goToCreateNewRegistration();
+        mainpage = registrations.goToCreateNewRegistration();
 
         DATestingPage daTestingPage = mainpage.goToDATestingPage();
 

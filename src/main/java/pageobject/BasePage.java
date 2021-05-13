@@ -1,4 +1,4 @@
-package cz.czechitas.selenium;
+package pageobject;
 
 import org.openqa.selenium.*;
 
